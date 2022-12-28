@@ -1,0 +1,35 @@
+.card{
+  padding: 50px 0;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: white;
+  &:hover{
+    transition: 0.3s linear;
+    scale: 1.01;
+  }
+
+  & button{
+    margin-top: 20px;
+    padding: 12px 40px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    background-color: #3e1770;
+    cursor: pointer;
+    font-weight: bold;
+    &:hover{
+      transition: 0.2s;
+      background-color: #7030c0;
+    }
+  }
+}
+.name{
+  margin-top: 20px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.price{
+  font-weight: bold;
+  font-size: 20px;
+  color: #4cb951;
+}

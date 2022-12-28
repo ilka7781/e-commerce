@@ -1,0 +1,72 @@
+.container{
+  max-width: 1200px;
+  margin: 20vh auto;
+  padding: 50px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(117,25,255,1) 44%, rgba(145,138,228,1) 100%, rgba(0,212,255,1) 100%);
+}
+.basketcon{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding: 50px;
+}
+.h1{
+  text-align: center;
+  color: white;
+  font-size: 50px;
+}
+.no{
+  text-align: center;
+  font-size: 60px;
+  padding: 80px;
+  color: white;
+}
+.basketcards{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+.imgb{
+  width: 20%;
+  height: auto;
+}
+.btns{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.name{
+  font-size: 30px;
+  color:  #3e1770;
+}
+.des li{
+  color:  #3e1770;
+  line-height: 2.3;
+}
+.price{
+  font-weight: bold;
+  font-size: 20px;
+  color: #4cb951!important;
+}
+.cost{
+  position: absolute;
+  font-size: 30px;
+  bottom: 0;
+  right: 5%;
+  color: white;
+  font-weight: bold;
+}
+.pricecost{
+  font-weight: bold;
+  font-size: 30px;
+  color: #4cb951!important;
+}

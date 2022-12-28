@@ -1,0 +1,84 @@
+.reg{
+  width: 50%;
+  margin: 50px auto;
+  position: relative;
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+}
+.success{
+  position: absolute;
+  background-color: #4cb951;
+  font-size: 50px;
+  left: 5%;
+  bottom: 5%;
+  padding: 20px;
+  border-radius: 10px;
+  & h1{
+    color: white;
+  }
+}
+.error{
+  padding: 20px;
+  position: absolute;
+  background-color: #fa4545;
+  color: white;
+  font-size: 50px;
+  left: 5%;
+  bottom: 5%;
+  border-radius: 10px;
+  & h1{
+    color: white;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &_label{
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 40px;
+  }
+  input{
+    border-top:none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 2px solid #e1dede;
+    outline: none;
+    padding: 15px;
+    border-radius: 5px;
+    &:focus{
+      transition: 0.2s linear;
+      border-bottom: 2px solid black;
+    }
+  }
+  &_submit {
+    margin-top: 20px;
+    color: white;
+    font-size: 20px;
+    padding: 0.5em 2em;
+    width: max-content;
+    margin-left: auto;
+    text-decoration: none;
+    background-color: black;
+    border-radius: 5px;
+    border: solid 1px black;
+
+    &:hover {
+      background-color: white;
+      color: black;
+      transition: all 0.3s ease-out;
+      cursor: pointer;
+    }
+  }
+}
+
+.errors{
+  color: #fa4545;
+  font-weight: bold;
+  font-size: 17px;
+}

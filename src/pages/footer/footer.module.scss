@@ -1,0 +1,47 @@
+.container{
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #7030c0;
+  padding: 15px;
+}
+.footercon{
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 30px;
+}
+.h1{
+  font-size: 25px;
+  color: white;
+}
+.links{
+  ul li a{
+    text-decoration: none;
+    color: white;
+    line-height: 1.8;
+    &:hover{
+      transition: 0.2s linear;
+      opacity: 0.5;
+    }
+  }
+}
+.logo{
+  display: flex;
+  align-items: center;
+  svg{
+    font-size: 40px;
+    color: white;
+  }
+}
+.des{
+  display: flex;
+  color: white;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  svg{
+    font-size: 18px;
+  }
+}
