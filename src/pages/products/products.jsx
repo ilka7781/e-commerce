@@ -59,7 +59,7 @@ const Products = () => {
                             watchCardsComp
                         ) : (
                             productsCards?.map(p => (
-                                <AllProductCards p={p}/>
+                                <AllProductCards key={p.id} p={p}/>
                             ))
                         )
                     }

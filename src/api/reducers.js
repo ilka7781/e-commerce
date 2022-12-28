@@ -3,8 +3,11 @@ const GET_USER_TOKEN = 'GET_USER_TOKEN';
 const RESET = 'RESET';
 const SELECTED = 'SELECTED';
 const ADD_BASKET= 'ADD_BASKET';
+const ADD_FAVORITE= 'ADD_FAVORITE';
 const ADD_BASKET_PRODUCTS_ID = 'ADD_BASKET_PRODUCTS_ID';
+const ADD_FAVORITE_PRODUCTS_ID = 'ADD_FAVORITE_PRODUCTS_ID';
 const ADD_BASKET_PRODUCTS ='ADD_BASKET_PRODUCTS';
+const ADD_FAVORITE_PRODUCTS ='ADD_FAVORITE_PRODUCTS';
 const IS_FETCHING ='IS_FETCHING';
 
 const initialState={
@@ -471,7 +474,10 @@ const initialState={
     selected:{},
     basket: [],
     basketProductsId: [],
-    basketProducts: []
+    basketProducts: [],
+    favorite: [],
+    favoriteProductsId: [],
+    favoriteProducts: []
 };
 
 export const getRegisterReducer = ( state=initialState, action) =>{
@@ -511,6 +517,21 @@ export const getRegisterReducer = ( state=initialState, action) =>{
                 ...state,
                 basketProducts: action.payload
             }
+        case ADD_FAVORITE:
+            return {
+                ...state,
+                favorite: action.payload
+            }
+        case ADD_FAVORITE_PRODUCTS_ID:
+            return {
+                ...state,
+                favoriteProductsId: action.payload
+            }
+        case ADD_FAVORITE_PRODUCTS:
+            return {
+                ...state,
+                favoriteProducts: action.payload
+            }
         case IS_FETCHING:
             return {
                 ...state,
@@ -529,4 +550,7 @@ export const selectedAction = (productData) => ({type: SELECTED, payload: produc
 export const addToBasketAction = (productData) => ({type: ADD_BASKET, payload: productData});
 export const addToBasketProductsIdAction = (bpData) => ({type: ADD_BASKET_PRODUCTS_ID, payload: bpData});
 export const addToBasketProductsAction = (bpData) => ({type: ADD_BASKET_PRODUCTS, payload: bpData});
+export const addToFavoriteAction = (productData) => ({type: ADD_FAVORITE, payload: productData});
+export const addToFavoriteProductsIdAction = (bpData) => ({type: ADD_FAVORITE_PRODUCTS_ID, payload: bpData});
+export const addToFavoriteProductsAction = (bpData) => ({type: ADD_FAVORITE_PRODUCTS, payload: bpData});
 export const isFetchingAction = (f) => ({type: IS_FETCHING, payload: f});

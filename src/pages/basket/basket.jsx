@@ -23,7 +23,7 @@ const Basket = () => {
             dispatch(addToBasketProductsAction(filteredProducts));
             console.log(filteredProducts)
         }
-    }, [])
+    },[productsId])
 
     return (
         <div className={c.container}>

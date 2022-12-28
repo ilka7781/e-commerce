@@ -1,23 +1,27 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import c from './moreCards.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {addToBasketAction, addToBasketProductsIdAction} from "../../../api/reducers";
+import {
+    addToBasketAction,
+    addToBasketProductsIdAction,
+    addToFavoriteAction,
+    addToFavoriteProductsIdAction
+} from "../../../api/reducers";
 
 const MoreCards = () => {
     const s = useSelector(state => state.getUser.selected.p);
     const basket = useSelector(state => state.getUser.basket.id);
-    const productsId = useSelector(state => state.getUser.basketProductsId.products);
+    const favorite = useSelector(state => state.getUser.favorite.id);
     const navigate = useNavigate();
     const goToProducts = () => navigate('/products');
     const dispatch = useDispatch();
     const accessToken = localStorage.getItem('accessToken');
 
-
-    const addToBasket = () => {
+    const addToBasket = async () => {
         if (!basket) {
-            axios.post(`https://cryxxen.pythonanywhere.com/baskets/`, {
+            await axios.post(`https://cryxxen.pythonanywhere.com/baskets/`, {
                 products: [
                     JSON.stringify(s.id),
                 ],
@@ -32,7 +36,7 @@ const MoreCards = () => {
                 console.log(error)
             );
         } else {
-            axios.patch(`https://cryxxen.pythonanywhere.com/baskets/${basket}/`, {
+            await axios.patch(`https://cryxxen.pythonanywhere.com/baskets/${basket}/`, {
                 products: [JSON.stringify(s.id)],
                 is_active: true
             }, {
@@ -44,12 +48,7 @@ const MoreCards = () => {
             ).catch(error =>
                 console.log(error)
             );
-        }
-    }
-
-    useEffect(()=>{
-        if (productsId !== null){
-            axios.get(`https://cryxxen.pythonanywhere.com/baskets/${basket}/`, {
+            await axios.get(`https://cryxxen.pythonanywhere.com/baskets/${basket}/`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
@@ -61,7 +60,48 @@ const MoreCards = () => {
                 console.log(error)
             );
         }
-    },[])
+    }
+
+    const addToFavorite = async () => {
+        if (!favorite) {
+            await axios.post(`https://cryxxen.pythonanywhere.com/favorites/`, {
+                product: s.id,
+
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }).then(res =>
+                dispatch(addToFavoriteAction(res.data))
+            ).catch(error =>
+                console.log(error)
+            );
+        } else {
+            await axios.patch(`https://cryxxen.pythonanywhere.com/favorites/${favorite}/`, {
+                product: s.id,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            }).then(res =>
+                dispatch(addToFavoriteAction(res.data))
+            ).catch(error =>
+                console.log(error)
+            );
+            await axios.get(`https://cryxxen.pythonanywhere.com/favorites/${favorite}/`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+                .then((res) => {
+                        dispatch(addToFavoriteProductsIdAction(res.data));
+                    }
+                ).catch(error =>
+                console.log(error)
+            );
+        }
+    }
+
 
     return (
         <div className={c.container}>
@@ -90,7 +130,7 @@ const MoreCards = () => {
                             </ul>
                             <button className={c.btnMore} onClick={goToProducts}>Get Back</button>
                             <button className={c.btnMore} onClick={addToBasket}>Add to basket</button>
-                            <button className={c.btnMore}>Add to favourite</button>
+                            <button className={c.btnMore} onClick={addToFavorite}>Add to favourite</button>
                         </div>
 
                     </div>
