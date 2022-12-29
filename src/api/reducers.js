@@ -9,6 +9,7 @@ const ADD_FAVORITE_PRODUCTS_ID = 'ADD_FAVORITE_PRODUCTS_ID';
 const ADD_BASKET_PRODUCTS ='ADD_BASKET_PRODUCTS';
 const ADD_FAVORITE_PRODUCTS ='ADD_FAVORITE_PRODUCTS';
 const IS_FETCHING ='IS_FETCHING';
+const FIND_PRODUCT = 'FIND_PRODUCT';
 
 const initialState={
     user: [],
@@ -477,7 +478,8 @@ const initialState={
     basketProducts: [],
     favorite: [],
     favoriteProductsId: [],
-    favoriteProducts: []
+    favoriteProducts: [],
+    foundProducts: []
 };
 
 export const getRegisterReducer = ( state=initialState, action) =>{
@@ -537,6 +539,11 @@ export const getRegisterReducer = ( state=initialState, action) =>{
                 ...state,
                 isFetching: action.payload
             }
+        case FIND_PRODUCT:
+            return {
+                ...state,
+                foundProducts: action.payload
+            }
         default:
             return state
     }
@@ -554,3 +561,4 @@ export const addToFavoriteAction = (productData) => ({type: ADD_FAVORITE, payloa
 export const addToFavoriteProductsIdAction = (bpData) => ({type: ADD_FAVORITE_PRODUCTS_ID, payload: bpData});
 export const addToFavoriteProductsAction = (bpData) => ({type: ADD_FAVORITE_PRODUCTS, payload: bpData});
 export const isFetchingAction = (f) => ({type: IS_FETCHING, payload: f});
+export const findProductAction = (findData) => ({type: FIND_PRODUCT, payload: findData});

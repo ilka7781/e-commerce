@@ -1,0 +1,13 @@
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 50px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(117,25,255,1) 44%, rgba(145,138,228,1) 100%, rgba(0,212,255,1) 100%);
+  border-radius: 10px;
+}
+.cardscon{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  grid-gap: 20px;
+}

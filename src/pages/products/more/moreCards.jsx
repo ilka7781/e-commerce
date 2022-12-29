@@ -30,11 +30,20 @@ const MoreCards = () => {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
-            }).then(res =>
-                dispatch(addToBasketAction(res.data))
-            ).catch(error =>
-                console.log(error)
-            );
+            }).then((res) => {
+                     axios.patch(`https://cryxxen.pythonanywhere.com/baskets/${res.data.id}/`, {
+                        products: [JSON.stringify(s.id)],
+                        is_active: true
+                    }, {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    }).then(res =>
+                        dispatch(addToBasketAction(res.data))
+                    ).catch(error =>
+                        console.log(error)
+                    )
+            })
         } else {
             await axios.patch(`https://cryxxen.pythonanywhere.com/baskets/${basket}/`, {
                 products: [JSON.stringify(s.id)],
@@ -129,8 +138,8 @@ const MoreCards = () => {
                                 <li>Material : {s.material}</li>
                             </ul>
                             <button className={c.btnMore} onClick={goToProducts}>Get Back</button>
-                            <button className={c.btnMore} onClick={addToBasket}>Add to basket</button>
-                            <button className={c.btnMore} onClick={addToFavorite}>Add to favourite</button>
+                            <button className={c.btnMore} onClick={addToBasket}>Add to basket (Double Click Me)</button>
+                            <button className={c.btnMore} onClick={addToFavorite}>Add to favourite (Double Click Me)</button>
                         </div>
 
                     </div>

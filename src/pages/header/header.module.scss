@@ -74,3 +74,42 @@
 ::placeholder{
        color: white;
 }
+.dropdown {
+  position: absolute;
+  background-color: #22262f;
+  top: 7%;
+  left: 65%;
+  width: 20%;
+  padding: 7px 12px;
+  border-radius: 5px;
+  transition: 0.2s linear;
+  z-index: 100;
+  &:hover{
+    background-color:  #22262f;
+  }
+}
+.active{
+  display: block;
+}
+.inactive{
+  display: none;
+}
+ul li:hover{
+  transition: 0.2s linear;
+  background-color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  & a{
+    color: #3e1770;
+  }
+}
+.logins{
+  padding: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #30363d;
+}
+.logins a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+}
