@@ -37,7 +37,7 @@ const WishList = () => {
         }
     }, [userFavoriteId])
 
-    return (
+   if(userFavoriteId) return (
         <div className={c.container}>
             <h1 className={c.h1}>Wish List</h1>
 
@@ -77,6 +77,11 @@ const WishList = () => {
             </div>
         </div>
     );
+   return (
+       <div className={c.container}>
+           <h1>No products</h1>
+       </div>
+   )
 };
 
 export default WishList;

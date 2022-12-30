@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import c from './moreCards.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -6,8 +6,8 @@ import axios from "axios";
 import {
     addToBasketAction,
     addToBasketProductsIdAction,
-    addToFavoriteAction, addToFavoriteProductsAction,
-    addToFavoriteProductsIdAction
+    addToFavoriteAction,
+    addToFavoriteProductsIdAction, getRegisterAction, isFetchingAction
 } from "../../../api/reducers";
 
 const MoreCards = () => {
@@ -18,9 +18,7 @@ const MoreCards = () => {
     const goToProducts = () => navigate('/products');
     const dispatch = useDispatch();
     const accessToken = localStorage.getItem('accessToken');
-    const products = useSelector(state => state.getUser.products);
-    const productsArray = Object.entries(products);
-    const userFavoriteId = useSelector(state => state.getUser.user.user_favorite[0].product);
+    const user = useSelector(state => state.getUser.user);
 
     const addToBasket = async () => {
         if (!basket) {
@@ -73,7 +71,20 @@ const MoreCards = () => {
             );
         }
     }
-
+    useEffect(() => {
+        if (accessToken) {
+            dispatch(isFetchingAction(true));
+            axios.get('https://cryxxen.pythonanywhere.com/users/get_user/',{
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            ).then(res =>
+                dispatch(getRegisterAction(res.data)),
+            )
+            dispatch(isFetchingAction(false))
+        }
+    }, [user])
     const addToFavorite = async () => {
         if (!favorite) {
             await axios.post(`https://cryxxen.pythonanywhere.com/favorites/`, {
@@ -88,8 +99,6 @@ const MoreCards = () => {
             ).catch(error =>
                 console.log(error)
             );
-            const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
-            dispatch(addToFavoriteProductsAction(filterFavorite));
         } else {
             await axios.patch(`https://cryxxen.pythonanywhere.com/favorites/${favorite}/`, {
                 product: s.id,
@@ -113,11 +122,7 @@ const MoreCards = () => {
                 ).catch(error =>
                 console.log(error)
             );
-            const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
-            dispatch(addToFavoriteProductsAction(filterFavorite));
         }
-        const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
-        dispatch(addToFavoriteProductsAction(filterFavorite));
     }
 
 
@@ -155,9 +160,9 @@ const MoreCards = () => {
 
 
                 ) : (
-                    <div>
+                    <div className={c.noselected}>
                         <h1>No selected product</h1>
-                        <button onClick={goToProducts}>Get Back</button>
+                        <button className={c.btnMore} onClick={goToProducts}>Get Back</button>
                     </div>
                 )
             }
