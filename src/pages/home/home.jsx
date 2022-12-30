@@ -31,7 +31,10 @@ const Home = () => {
     return (
         <div className={c.container}>
             <div className={c.promoPar}>
-                <h1 className={c.ph1}>EVENT</h1>
+                <div>
+                    <h1 className={c.ph1}>EVENT</h1>
+                </div>
+
                 <div className={c.promo}>
                     <img src='https://damion.club/uploads/posts/2022-03/1647688097_43-damion-club-p-void-spirit-kartinki-52.jpg' alt="dota2"/>
                     <div className={c.promodes}>

@@ -54,3 +54,10 @@ h1{
     font-size: 18px;
   }
 }
+
+@media (max-width: 850px) {
+  .morecon{
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+}

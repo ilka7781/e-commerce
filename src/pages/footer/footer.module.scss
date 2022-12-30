@@ -45,3 +45,10 @@
     font-size: 18px;
   }
 }
+
+@media (max-width: 640px) {
+  .footercon{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}

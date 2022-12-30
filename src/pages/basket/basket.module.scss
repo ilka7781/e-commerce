@@ -70,3 +70,24 @@
   font-size: 30px;
   color: #4cb951!important;
 }
+
+@media (max-width: 940px){
+  .basketcards{
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+  }
+  .imgb{
+    width: 50%;
+    height: auto;
+  }
+}
+@media (max-width: 500px){
+  .name{
+    font-size: 20px;
+  }
+  .imgb{
+    width: 80%;
+    height: auto;
+  }
+}

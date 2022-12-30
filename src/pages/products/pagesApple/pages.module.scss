@@ -11,3 +11,14 @@
   text-align: center;
   grid-gap: 20px;
 }
+
+@media (max-width: 920px) {
+  .cardscon{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 740px) {
+  .cardscon{
+    grid-template-columns: 1fr;
+  }
+}

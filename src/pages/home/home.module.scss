@@ -109,6 +109,7 @@
 .topsales {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 80px auto;
   gap: 40px;
   flex-wrap: wrap;
@@ -174,4 +175,42 @@
 .promoh1{
   color: #3e1770;
   font-weight: bold;
+}
+@media (max-width: 916px) {
+  .promoPar{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .promo{
+    flex-direction: column;
+    & img{
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 970px) {
+  .topSalesI{
+    width: 80%;
+  }
+}
+@media (max-width: 680px){
+  .topsalesP{
+    font-size: 30px;
+  }
+  .categories{
+    flex-direction: column;
+  }
+  .topsales{
+    flex-direction: column;
+  }
+
+  .info{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .infoCards{
+    width: 100%;
+  }
 }

@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import c from "../basket/basket.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {addToFavoriteProductsAction} from "../../api/reducers";
+import {addToFavoriteProductsAction, getRegisterAction, isFetchingAction} from "../../api/reducers";
+import axios from "axios";
 
 const WishList = () => {
 
@@ -12,6 +13,7 @@ const WishList = () => {
     const favoriteProducts = useSelector(state => state.getUser.favoriteProducts[0]);
     const navigate = useNavigate();
     const productsArray = Object.entries(products);
+    const userFavoriteId = useSelector(state => state.getUser.user.user_favorite[0].product);
     const dispatch = useDispatch();
 
 
@@ -19,16 +21,25 @@ const WishList = () => {
         navigate('/reg');
     }
     useEffect(() => {
-        if (productsId) {
-            const filteredProducts = productsArray.filter(([key, value]) => value.id === productsId);
-            dispatch(addToFavoriteProductsAction(filteredProducts));
-            console.log(filteredProducts)
+        if (accessToken) {
+            dispatch(isFetchingAction(true));
+            axios.get('https://cryxxen.pythonanywhere.com/users/get_user/',{
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            ).then(res =>
+                dispatch(getRegisterAction(res.data))
+            )
+            const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
+            dispatch(addToFavoriteProductsAction(filterFavorite));
+            dispatch(isFetchingAction(false))
         }
     }, [productsId])
 
     return (
         <div className={c.container}>
-            <h1 className={c.h1}>Basket</h1>
+            <h1 className={c.h1}>Wish List</h1>
 
             <div className={c.basketcon}>
                 {
@@ -47,8 +58,6 @@ const WishList = () => {
                                             <li className={c.price}>{b.price} $</li>
                                         </ul>
                                     </div>
-                                    <p className={c.cost}>Cost: <span
-                                        className={c.pricecost}>{favoriteProducts[1].price} $</span></p>
                                 </div>
                             )
                         })
