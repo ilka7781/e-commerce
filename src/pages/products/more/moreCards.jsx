@@ -6,7 +6,7 @@ import axios from "axios";
 import {
     addToBasketAction,
     addToBasketProductsIdAction,
-    addToFavoriteAction,
+    addToFavoriteAction, addToFavoriteProductsAction,
     addToFavoriteProductsIdAction
 } from "../../../api/reducers";
 
@@ -18,6 +18,9 @@ const MoreCards = () => {
     const goToProducts = () => navigate('/products');
     const dispatch = useDispatch();
     const accessToken = localStorage.getItem('accessToken');
+    const products = useSelector(state => state.getUser.products);
+    const productsArray = Object.entries(products);
+    const userFavoriteId = useSelector(state => state.getUser.user.user_favorite[0].product);
 
     const addToBasket = async () => {
         if (!basket) {
@@ -85,6 +88,8 @@ const MoreCards = () => {
             ).catch(error =>
                 console.log(error)
             );
+            const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
+            dispatch(addToFavoriteProductsAction(filterFavorite));
         } else {
             await axios.patch(`https://cryxxen.pythonanywhere.com/favorites/${favorite}/`, {
                 product: s.id,
@@ -108,7 +113,11 @@ const MoreCards = () => {
                 ).catch(error =>
                 console.log(error)
             );
+            const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
+            dispatch(addToFavoriteProductsAction(filterFavorite));
         }
+        const filterFavorite = productsArray.filter(([key, value]) => value.id === userFavoriteId);
+        dispatch(addToFavoriteProductsAction(filterFavorite));
     }
 
 

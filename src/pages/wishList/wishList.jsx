@@ -9,7 +9,7 @@ const WishList = () => {
 
     const accessToken = localStorage.getItem('accessToken');
     const products = useSelector(state => state.getUser.products);
-    const productsId = useSelector(state => state.getUser.favoriteProductsId.product);
+    const productsId = useSelector(state => state.getUser.favorite.product);
     const favoriteProducts = useSelector(state => state.getUser.favoriteProducts[0]);
     const navigate = useNavigate();
     const productsArray = Object.entries(products);
@@ -35,7 +35,7 @@ const WishList = () => {
             dispatch(addToFavoriteProductsAction(filterFavorite));
             dispatch(isFetchingAction(false))
         }
-    }, [productsId])
+    }, [userFavoriteId])
 
     return (
         <div className={c.container}>

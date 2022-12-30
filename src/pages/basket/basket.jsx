@@ -1,8 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addToBasketProductsAction} from "../../api/reducers";
+import {
+    addToBasketProductsAction, addToBasketProductsIdAction,
+    addToFavoriteProductsAction,
+    getRegisterAction,
+    isFetchingAction
+} from "../../api/reducers";
 import c from './basket.module.scss';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Basket = () => {
     const dispatch = useDispatch();
@@ -10,6 +16,9 @@ const Basket = () => {
     const products = useSelector(state => state.getUser.products);
     const productsId = useSelector(state => state.getUser.basketProductsId.products);
     const basketProducts = useSelector(state => state.getUser.basketProducts[0]);
+    const basketOwner =useSelector(state => state.getUser.user.basket_owner);
+    const lastItemBasket = basketOwner[basketOwner.length-1].products_data[0].id;
+
     const navigate = useNavigate();
     const productsArray = Object.entries(products);
 
@@ -18,12 +27,21 @@ const Basket = () => {
         navigate('/reg');
     }
     useEffect(() => {
-        if (productsId) {
-            const filteredProducts = productsArray.filter(([key, value]) => value.id === productsId[0]);
+        if (accessToken) {
+            dispatch(isFetchingAction(true));
+            axios.get('https://cryxxen.pythonanywhere.com/users/get_user/',{
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            ).then(res =>
+                dispatch(getRegisterAction(res.data))
+            )
+            const filteredProducts = productsArray.filter(([key, value]) => value.id === lastItemBasket);
             dispatch(addToBasketProductsAction(filteredProducts));
-            console.log(filteredProducts)
+            dispatch(isFetchingAction(false))
         }
-    },[productsId])
+    },[lastItemBasket])
 
     return (
         <div className={c.container}>

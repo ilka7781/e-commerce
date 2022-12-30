@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import c from './home.module.scss';
 import {Link, useNavigate} from "react-router-dom";
@@ -7,7 +7,8 @@ import {MdCategory, MdSupportAgent} from "react-icons/md";
 import {IoIosPeople} from "@react-icons/all-files/io/IoIosPeople";
 import {FaShippingFast} from "@react-icons/all-files/fa/FaShippingFast";
 import {RiNumbersFill} from "@react-icons/all-files/ri/RiNumbersFill";
-import {selectedAction} from "../../api/reducers";
+import {getRegisterAction, isFetchingAction, selectedAction} from "../../api/reducers";
+import axios from "axios";
 
 
 const Home = () => {
@@ -17,6 +18,8 @@ const Home = () => {
     const watches = basketProducts.filter(item => item.category === 3);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector(state => state.getUser.user);
+    const accessToken = localStorage.getItem('accessToken');
 
 
     const latestIphone = iphones[9];
@@ -27,6 +30,20 @@ const Home = () => {
         dispatch(selectedAction({p}));
         navigate(`/details`);
     };
+    useEffect(() => {
+        if (accessToken) {
+            dispatch(isFetchingAction(true));
+            axios.get('https://cryxxen.pythonanywhere.com/users/get_user/',{
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            ).then(res =>
+                dispatch(getRegisterAction(res.data)),
+            )
+            dispatch(isFetchingAction(false))
+        }
+    }, [user])
 
     return (
         <div className={c.container}>
